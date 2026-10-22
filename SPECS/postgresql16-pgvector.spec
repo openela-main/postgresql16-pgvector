@@ -11,8 +11,8 @@
 %endif
 
 Name:		postgresql%{pgversion}-%{sname}
-Version:	0.6.2
-Release:	6%{?dist}
+Version:	0.8.7
+Release:	1%{?dist}
 Summary:	Open-source vector similarity search for Postgres
 License:	PostgreSQL
 URL:		https://github.com/%{sname}/%{sname}/
@@ -68,8 +68,8 @@ This packages provides JIT support for pgvector
 %install
 %make_install
 
-#Remove header file, we don't need it right now:
-%{__rm} %{buildroot}/%{_includedir}/pgsql/server/extension/%{pname}/%{pname}.h
+#Remove header files, we don't need them right now:
+%{__rm} -r %{buildroot}/%{_includedir}/pgsql/server/extension/%{pname}/
 
 %files -n %{pkgname}
 %doc README.md
@@ -84,6 +84,11 @@ This packages provides JIT support for pgvector
 %endif
 
 %changelog
+* Tue Oct 13 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 0.8.7-1
+- CVE-2026-103484 postgresql16-pgvector: pgvector: Arbitrary code execution via out-of-bounds write during IVFFlat index build
+  execution via out-of-bounds write during IVFFlat index build
+- Resolves: RHEL-282041
+
 * Thu Mar 27 2025 Michal Srb <michal@redhat.com> - 0.6.2-6
 - Rebuild for Konflux (Resolves: RHEL-84822)
 
